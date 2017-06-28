@@ -90,7 +90,7 @@ function RNG(){
 		case 11:
 			return "SNAP CRACKLE POP IT'S";
 		case 12:
-			return "CRINGEY SHITTY ONE LINER IT'S"
+			return "CRINGEY SHITTY ONE LINER IT'S";
 	}
 }
 function RNG2(){
