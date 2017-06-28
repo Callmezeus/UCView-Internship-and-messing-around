@@ -1,0 +1,37 @@
+@font-face {
+    font-family: FrontPage;
+    src: url(FPS.otf);
+}
+h1{
+	font-family: FrontPage;
+	text-align: center;
+	font-size: 13vh;
+	letter-spacing: 8px;
+
+}
+
+h2{
+	font-family: FrontPage;
+	text-align: center;
+	font-size: 7vh;
+	letter-spacing: 8px;
+	color:#939393;
+}
+h3{
+	position: absolute;
+	z-index: 1;
+	font-family: FrontPage;
+	text-align: left;
+	font-size: 1.5vh;
+	letter-spacing: 2px;
+	color:#939393;
+	display: inline;
+	bottom:20px;
+	left:5px;
+}
+#paypal{
+	position: absolute;
+	z-index: 1;
+	bottom:0;
+	left:0;
+}
