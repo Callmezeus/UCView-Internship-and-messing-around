@@ -65,12 +65,12 @@ function refreshTime(){
 	
 }
 function RNG(){
-	var gaben=Math.floor((Math.random() * 11) + 1);
+	var gaben=Math.floor((Math.random() * 12) + 1);
 	switch(gaben){
 		case 1:
 			return "I'D FUCKING SAY IT'S";
 		case 2:
-			return "IT'S TARNATION FLUMMERY";
+			return "WELL TARNATION FLUMMERY IT'S";
 		case 3:
 			return "GEE GOLLY IT'S";
 		case 4:
@@ -89,6 +89,8 @@ function RNG(){
 			return "WHAT, WERE YOU EXPECTING SOMETHING ELSE? IT'S";
 		case 11:
 			return "SNAP CRACKLE POP IT'S";
+		case 12:
+			return "CRINGEY SHITTY ONE LINER IT'S"
 	}
 }
 function RNG2(){
