@@ -1,18 +1,45 @@
-/// <reference path="jquery.js" />
-window.onload = function () {
-    window.params =
+var responseFeed;
+var interval=0;
+var url="";
+var totalImages=0;
+var cycleCount=1;
+var allImages=[];
+var allDescriptions=[];
+var allAuthors=[];
+window.addEventListener('load',function(){
+	window.params =
 	{
 	    interval: -1,
 	    category: '',
 	};
-    animate();
-    parseUrl();
-    if (!checkParams()) {
-        alert('Wrong interval or wrong category given');
+
+	parseUrl();
+	url=getUrl();
+	
+	if(!checkParams()){
+		alert('Wrong interval or wrong category given');
         return;
-    }
-    prepareThings();
-}
+	}
+
+	startApp();
+	interval=window.params.interval;
+
+	page = document.getElementById('app-container');
+	image = document.getElementById('frontimg');
+	description = document.getElementById('picture-description');
+	backimg = document.getElementById('backimg');
+	if(getCookie("cook")==""||getCookie("cook")==undefined||getCookie("cook")==null){
+		cycleCount=0;
+	}else{
+		cycleCount=getCookie("cook");
+	}
+	setInterval(function(){
+	    startApp();
+		setCookie("cook",cycleCount);
+	},interval*1000);
+
+}, false);
+
 function checkParams() {
     var params = window.params;
     if (params.category == null || params.category == undefined)
@@ -31,209 +58,253 @@ function checkParams() {
 }
 function getUrl() {
     var par = window.params;
-    var url = "./fetch.php?url=https://500px.com/";
-    if (par.category != "custom")
+    url = "https://500px.com/";
+    if (par.category != "custom"){
         return url + par.category + ".rss";
-    else
+    }else{
         return url + "search.rss?q="
-            + ((par.q == undefined) ? "" : par.q)
-            + "&type=photos&categories="
-            + ((par.categories == undefined) ? "" : par.categories)
-            + "&sort="
-            + ((par.sort == undefined) ? "" : par.sort);
+            + ((par.search == undefined) ? "" : par.search)
+            + "&type=photos"
+            + "&sort=date";
+    }
 }
-function prepareThings() {
-    var params = window.params;
-    params.images = [];
-    params.quotes = [];
-    params.quotes.pointer = 0;
-    params.images.readies = 0;
-    params.images.pointer = 0;
-    $.ajax({
-        url: getUrl(),
-        dataType: 'xml',
-        success: function (data) {
-            $(data).find('channel>item').each(function (i, value) {
-                var title = $(value).find('title').html();
-                alert(title);
-                // title here recieves the value of undefined in IE affects item.title in code below
-                var item = {};
-                if (params.category == "custom") {
-                    item.title = title;
-                    item.author = $(value).find('author').html();
-                    item.title+=" - "+item.author;
-                }
-                else {
-                    item.author = title.substring(title.lastIndexOf(' by ') + 4);
-                    item.title = title.substring(0, title.length - item.author.length - 4)+" - "+item.author;
-                }
-                var img = new Image();
-                img.onload = function () {
-                    params.images.readies++;
-                    console.log(params.images.readies + " ready of " + params.images.length);
-                }
-                img.onerror = function () {
-                    params.images.readies++;
-                    console.log(params.images.readies + " ready of " + params.images.length);
-                }
-                if (params.category == "custom")
-                {
-                    img.src=$(value).find('content').attr('url');
-                    //Img does not properly load on Firefox and IE
-                }
-                else
-                {
-                    img.src = $($(value).find('description').text()).find('img').attr('src');
-                }
-                params.images.push(img);
-                item.image = img;
-                params.quotes.push(item);
-            });
+function startApp(){
+	//One of the default searches
+	if(url=="https://500px.com/popular.rss"||url=="https://500px.com/upcoming.rss"||url=="https://500px.com/fresh.rss"||url=="https://500px.com/editors.rss"){
+		var url1 = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%20%3D%20'"+url+"'";
+	
+	function createTree(){
+	   	$.get(url1, function(data) {
+	   		console.log("data:",data);
+	   		var items = XML2jsobj(data.getElementsByTagName('channel')[0]);
+	   		responseFeed = items;
+
+	   	    var images = $(data.documentElement).find("description").text().match(/<img\s.+>(?=<)/g);
+	   	    var srcs = $.map(images, function(img) {
+	   	        return $(img).attr("src")
+	   	    });
+
+	   	    createImageArray(srcs);
+	   	    createDescriptionArray(responseFeed);
+	   	    if(getCookie("cook")==""||getCookie("cook")==undefined||getCookie("cook")==null){
+	   	    		
+	   	    		image.src= allImages[0];
+	   	   			description.innerHTML=allDescriptions[0];
+	   	   			backimg.src=allImages[cycleCount];
+
+	   	   		}else{
+
+	   	   			cycleCount=getCookie("cook");
+	   	   			if(cycleCount>0){
+	   	   				cycleCount--;
+	   	   			}
+	   	   			image.src=allImages[cycleCount];
+	   	   			description.innerHTML=allDescriptions[cycleCount];
+	   	   			cycleCount++;
+
+	   	   	}
+	   	   	cycleCount++;
+	   	   		if (cycleCount==allImages.length){
+	   	   			cycleCount=0;
+	   	   		}
+	   	   		setCookie("cook",cycleCount);
+	   	      
+	   	});
+	   
+	}
+	
+	createTree();
+
+	}else{
+		//Custom search
+		var searchInput = pullSearch(url);
+		var url1 = "https://query.yahooapis.com/v1/public/yql?q=%20select%20*%20from%20xml%20where%20url%20%3D%20%22https%3A%2F%2F500px.com%2Fsearch.rss%3Fq%3D"+searchInput+"%26type%3Dphotos%26sort%3Drelevance%22";
+		
+		function createTreeCustom(){
+	   		$.get(url1, function(data) {
+	   			console.log("data:",data);
+	   			var items = XML2jsobj(data.getElementsByTagName('channel')[0]);
+	   			responseFeed = items;
+
+	   			if(responseFeed.item==undefined){
+	   				alert("No results found! Try searching something else.");
+	   				return;
+	   			}
+	   	  
+	   	    	setImages(responseFeed);
+	   	    	setDescriptions(responseFeed);
+	   	   		setAuthors(responseFeed);
+	   	   		//console.log("You are at:",getCookie("cook")-1);
+	   	   		if(getCookie("cook")==""||getCookie("cook")==undefined||getCookie("cook")==null){
+
+	   	    		image.src= responseFeed.item[cycleCount]["media:content"].url;
+	   	   			description.innerHTML=allDescriptions[cycleCount]+ " by "+allAuthors[cycleCount];
+
+	   	   			backimg.src=allImages[cycleCount]
+	   	   		}else{
+	   	   			
+	   	   			cycleCount=getCookie("cook");
+	   	   			if(cycleCount>0){
+	   	   				cycleCount--;
+	   	   			}
+	   	   			image.src=responseFeed.item[cycleCount]["media:content"].url;
+	   	   			description.innerHTML=allDescriptions[cycleCount]+ " by " + allAuthors[cycleCount-1];
+	   	   			cycleCount++;
+	   	   		}
+	   	   			cycleCount++;
+	   	   		if (cycleCount==allImages.length){
+	   	   			cycleCount=0;
+	   	   		}
+	   	   		setCookie("cook",cycleCount);
+	   	      
+		
+	   		});
+	   
+		}
+	createTreeCustom();
+	}
+}
+function setCookie(cname, cvalue) {
+
+    document.cookie = cname + "=" + cvalue + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
         }
-    });
-    waitABit();
-}
-function shuffle(a) {
-    var j, x, i;    
-    for (i = a.length; i; i--) {
-        j = Math.floor(Math.random() * i);
-        x = a[i - 1];
-        a[i - 1] = a[j];
-        a[j] = x;
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
     }
+    return "";
 }
-function getNextImage() {
-    return window.params.quotes
-    [window.params.quotes.pointer].image.src;
+function setImages(feed){
+	for(var i=0;i<feed.item.length;i++){
+		allImages[i]=feed.item[i]["media:content"].url;
+	}
 }
-function getNextQuote() {
-    return window.params.quotes
-    [window.params.quotes.pointer].title;
+function setDescriptions(feed){
+	for(var i=0;i<feed.item.length;i++){
+		allDescriptions[i]=feed.item[i].title;
+	}
 }
-function getNextAuthor() {
-    return window.params.quotes
-    [window.params.quotes.pointer].author;
+function setAuthors(feed){
+	for(var i=0;i<feed.item.length;i++){
+		allAuthors[i]=feed.item[i].author;
+	}
 }
-function waitABit() {
-    if (window.params.images.readies == 0 || window.params.images.readies < window.params.images.length) {
-        setTimeout(waitABit, 100);
-        return;
-    }
-    else {
-        var bimage = $('#backimg');
-        var fimage = $('#frontimg');
-        var image = getNextImage();
-        bimage.attr('src', image);
-        fimage.attr('src', image);
-        fimage.addClass('blur');
-        var nextQuote = getNextQuote();
-        var nextAuthor = getNextAuthor();
-        $('.wrapper').html(nextQuote);
-        $('#author').html(nextAuthor);
-        window.onresize = handleResize;
-        handleResize();
-        setTimeout(startAnimation, 1000);
-    }
-}
-function startAnimation() {
-    var fcontainer = $('#frontcontainer');
-    var quota = $('#quote');
-    var author = $('#author');
-    var bimage = $('#backimg');
-    var fimage = $('#frontimg');
-    var nextImage = getNextImage();
-    var nextQuote = getNextQuote();
-    var nextAuthor = getNextAuthor();
-    window.params.quotes.pointer = (++window.params.quotes.pointer) % window.params.quotes.length;
-    fimage.css('transition', '2s opacity');
-    fimage.addClass('blur');
-    bimage.removeClass('blur');
-    fimage.addClass('show');
-    fimage.one('transitionend',
-        function () {
-            //start showing 
-            fimage.hide();
-            bimage.css('transition', '' + (window.params.interval - 2) + 's transform');
-            bimage.addClass('move');
-            fimage.css('transition', '');
-            fimage.removeClass('show');
-            bimage.one('transitionend',
-				function () {
-				    //next slide
-				    fimage.addClass('move');
-				    fimage.removeClass('blur');
-				    fimage.show();
-				    bimage.attr('src', nextImage)
-				    bimage.css('transition', '');
-				    bimage.removeClass('move');
-				    bimage.addClass('blur');
-				    fcontainer.css('transition', '3s opacity');
-				    fcontainer.addClass('show');
-				    fcontainer.one('transitionend', function () {
-				        //after faded out
-				        quota.css('transition', '');
-				        quota.toggleClass('fadein');
-				        $('.wrapper').html(nextQuote);
-				        author.css('transition', '');
-				        author.toggleClass('showup');
-				        author.toggleClass('showuptext');
-				        author.html(nextAuthor);
-				        fimage.css('transition', 'none');
-				        fimage.removeClass('move');
-				        fimage.addClass('blur');
-				        fimage.attr('src', nextImage)
-				        fcontainer.css('transition', '');
-				        fcontainer.removeClass('show');
-				        startAnimation();
-				        return;
-				    });
-				    return;
-				});
-        });
-    setTimeout(function () {
-        quota.css('transition', '1.5s opacity');
-        quota.toggleClass('fadein');
-        author.css('transition', '1s transform');
-        author.toggleClass('showup');
-        author.one('transitionend',
-            function () {
-                author.css('transition', '0.5s color');
-                author.toggleClass('showuptext');
-            });
+function pullSearch(feed){
+	var start=0;
+	var end =0;
+	var foundStart=0;
+	var foundEnd=0;
+	for(var i=0;i<feed.length;i++){
+		if(feed[i]==='=' && foundStart===0){
+			//console.log("= found at character: ", i);
+			start=i+1;
+			foundStart=1;
+		}
 
-    }, 1500);
-    // var quoteOpacityTween=new TWEEN.Tween({opacity:0})
-    // .to({opacity:1},1500).onUpdate(function(){quota.css('opacity',this.opacity)}).delay(2000);
-    // quoteOpacityTween.start();
-    // var authorTween=new TWEEN.Tween({pos:-100})
-    // .to({pos:-30},1000).onUpdate(function(){author.style.transform='translateX('+this.pos+'%)'}).delay(2500);
-    // authorTween.onComplete(function(){
-    // 	var opacityTween=new TWEEN.Tween({opacity:0})
-    // 	.to({opacity:1},500).onUpdate(function(){author.style.color='rgba(255,255,255,'+this.opacity+')'})
-    // opacityTween.start();
-    // });
-    // authorTween.start();
+		if(feed[i]==="&"&&foundEnd===0){
+			//console.log("Amp found at :", i);
+			end = i;
+			foundEnd=1;
+		}
+	}
+	return feed.substring(start,end);
 }
-function handleResize() {
-    $(document.body).css('width', window.innerWidth);
-    $(document.body).css('height', window.innerHeight);
-    $('#border').css('width', window.innerWidth - 10);
-    $('#border').css('height', window.innerHeight - 10);
-    var container = $('.container');
-    var author = $('#author');
-    var quote = $('#quote');
-    container.css('opacity', 0);
-    author.css('font-size', getValue(20));
-    quote.css('font-size', getValue(15));
-    author.css('padding-right', getValue(20));
-    quote.css('line-height', getValue(25) + 'px');
-    quote.css('min-height', getValue(50));
-    new TWEEN.Tween({ opacity: 0 }).to({ opacity: 1 }, 500).onUpdate(function () { container.css('opacity', this.opacity) }).start();
+function cycle(){
+	totalImages = responseFeed.item.length;
+
+	image.src = allImages[cycleCount];
+	description.innerHTML=allDescriptions[cycleCount];
+	//image.height=window.innerHeight;
+	//image.width=window.innerWidth;
+
+	cycleCount++;
+	if (cycleCount==allImages.length){
+		cycleCount=0;
+	}
+}
+function cycleCustom(){
+	totalImages = responseFeed.item.length
+
+	image.src = allImages[cycleCount];
+	description.innerHTML=allDescriptions[cycleCount] + " by " + allAuthors[cycleCount];
+
+	cycleCount++;
+	if(cycleCount==allImages.length){
+		cycleCount=0;
+	}
+	backimg.src=allImages[cycleCount];
 
 }
-function getValue(value) {
-    return parseInt(window.innerHeight * value / 384.0)
+
+function createDescriptionArray(feed){
+	for(var i=0;i<feed.item.length;i++){
+		allDescriptions[i] = feed.item[i].title;
+	}
 }
+function createImageArray(srcs){
+	for(var i=0;i<srcs.length;i++){
+		allImages[i] = srcs[i];
+	}
+}
+function getUrlVars() {
+	var vars = {};
+	var paconsorts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+		vars[key] = value;
+	});
+	return vars;
+}
+		
+function XML2jsobj(node) {
+
+	var	data = {};
+
+	// append a value
+	function Add(name, value) {
+		if (data[name]) {
+			if (data[name].constructor != Array) {
+				data[name] = [data[name]];
+			}
+			data[name][data[name].length] = value;
+		}
+		else {
+			data[name] = value;
+		}
+	};
+	
+	// element attributes
+	var c, cn;
+	for (c = 0; cn = node.attributes[c]; c++) {
+		Add(cn.name, cn.value);
+	}
+	
+	// child elements
+	for (c = 0; cn = node.childNodes[c]; c++) {
+		if (cn.nodeType == 1) {
+			if (cn.childNodes.length == 1 && cn.firstChild.nodeType == 3 || cn.childNodes.length == 1&& cn.firstChild.nodeType === 4) {
+				// text value
+				Add(cn.nodeName, cn.firstChild.nodeValue);
+			}
+			else {
+				// sub-object
+				Add(cn.nodeName, XML2jsobj(cn));
+			}
+		}
+	}
+
+	return data;
+
+}
+
 function parseUrl() {
     /// Pattern to get (key=value) pairs from GET request
     var pattern = /(\w{1,}=\w{1,})/g;
@@ -247,8 +318,4 @@ function parseUrl() {
         }
     }
     window.params = obj;
-}
-function animate() {
-    TWEEN.update();
-    requestAnimationFrame(animate);
 }
