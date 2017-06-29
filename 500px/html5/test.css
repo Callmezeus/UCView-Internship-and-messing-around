@@ -1,0 +1,25 @@
+#app-container{
+	background-color: rgb(30, 30, 30);
+	display: inline-block;
+	position: absolute;
+	height: 100%;
+	width:100%;
+
+	user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+}
+#article-title{
+	color: white;
+	font-size: 30px;
+}
+#article-description{
+	color:white;
+	font-size: 14px;
+}
+#article-thumbnail{
+	float:right;
+}
+#Icon{
+	display: inline-block;
+}

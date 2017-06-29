@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+	<title>Dumb Test</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<link rel="stylesheet" type="text/css" href="test.css">
+	<script type="text/javascript" src="js/test.js"></script>
+
+</head>
+	
+<body>
+	<div id ="app-container">
+		<div id ="title-container">
+			<h1 id ="article-title">Test Title</h1>
+		</div>
+
+		<div id ="description-container">
+			<h2 id ="article-description">Test Description</h2>
+		</div>
+
+		<a href="http://ucview.com" id = "article-url">	
+			<img id ="article-thumbnail" alt="images/Cnn1.png">
+		</a>
+
+		<a href = "http://cnn.com" id = "Icon">
+			<img src="images/Cnn1.png" id ="cnnIcon">
+		</a>
+	</div>
+	
+	<script type="text/javascript">
+	var feed = "http://rss.cnn.com/rss/cnn_topstories.rss?format=xml";
+	windowWidth = window.innerWidth;
+	windowHeight = window.innerHeight;
+		createObjects(feed);
+	</script>
+</body>
+</html>

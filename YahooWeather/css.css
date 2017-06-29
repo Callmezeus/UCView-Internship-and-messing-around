@@ -1,0 +1,12 @@
+.container{
+    border-radius: 25px;
+    border: 2px solid #551a8b;
+    padding: 20px; 
+    width: 200px;
+    height: 150px; 
+    display: inline-block;
+}
+.desctext{
+	font-size: 14px;
+	color:black;
+}

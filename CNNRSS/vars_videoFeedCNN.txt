@@ -1,0 +1,11 @@
+vars:
+
+feed - the veed var
+numEntries - number, max number of items to load from feed
+playNumVids - number of videos to play before skipping to next add
+bgAlpha - default backgrund color is black at alpha 1, turning down alpha will make it gray to white at 0 alpha
+muteVideo = true/false - if true video is muted
+setVolume = number between 0 and 1, default 1  - max volume;
+
+example call:
+playVideosCNNfeed.html?feed=http://rss.cnn.com/services/podcasting/ac360/rss&playNumVids=1&bgAlpha=0.3&muteVideo=true

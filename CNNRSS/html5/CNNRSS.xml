@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<app type="content" category="Streaming" name="CNN Video RSS HTML5" icon="http://www.ucview.com/app_store/images/cnn-vid-HTML5.jpg" url="http://www.4digitalsignage.com/content/feedVideoCNN-HTML5/html5/CNN_feed_html5.html">
+
+
+      <var lable="News Category" name="feed" type="select" val_label="CNN Streaming" val="http://rss.cnn.com/services/podcasting/studentnews/rss"/>
+     <var lable="Number of video per loop" name="playNumVids" val_default="1" type="text" info="Enter how many video to play every playview"/>
+		 
+	 <var lable="Background Color" name="bgAlpha" type="select" val_default="0.5" val_label="1,2,3,4,5,6,7,8,9,10" val="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1" info="select background Shade"/>
+
+	 <var lable="Select Volume" name="setVolume" type="select" val_label="Mute,Very Soft,Soft,Normal,High,Max"  val="0,0.1,0.3,0.5,0.7,1" />
+		 
+
+
+  <description>See Live Articles from CNN</description>
+        
+				 <previews>
+         <preview url="http://www.4digitalsignage.com/content/feedVideoCNN-HTML5/html5/CNN_feed_html5.html?feed=http://rss.cnn.com/services/podcasting/studentnews/rss&amp;playNumVids=1&amp;bgAlpha=0.3" />
+               
+        </previews>
+				
+				
+			
+        <version>1.0</version>
+
+</app>
+

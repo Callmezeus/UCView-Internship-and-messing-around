@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+	<title>500px app</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<link rel="stylesheet" type="text/css" href="500px.css">
+	<script type="text/javascript" src="js.js"></script>
+	<style>
+	
+	@font-face{
+			font-family: Ubuntu;
+			src: url(Ubuntu-L.ttf);
+		}
+		@font-face{
+			font-family: UbuntuR;
+			src: url(Ubuntu-R.ttf);
+		}
+
+		body {
+			background-color:#fff;
+			margin:0;
+			left:-100px;
+			padding: 0;
+			overflow: hidden;
+		}
+		img
+		{
+            object-fit:cover;
+			-webkit-backface-visibility: hidden;
+			-webkit-transform-style: preserve-3d;
+			
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		
+		
+			
+		}
+	
+		 
+		
+		.out
+		{
+			opacity: 100;
+		}
+		.show
+		{
+			opacity: 100 !important;
+/*			filter: blur(0px);
+*/		}
+.blur
+{
+	filter: blur(10px);
+}
+.noblur
+{
+	filter: blur(0px);
+}
+.move
+{
+	transform:perspective(2000px) translateZ(30px);
+}
+#description-container{
+
+}
+.container{
+	opacity: 100;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+			/*width: 683px;
+			height: 384px;
+			*/
+			background: transparent;
+			position: absolute;
+			/*top:100px;
+			left: 300px;*/
+		}
+		#picture-description{
+			opacity: 100;
+			display: table;
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			background: rgba(0,0,0,0.7);
+			border-left: 7px solid rgb(240, 129, 70);
+			min-height: 100px;
+			padding: 10px;
+			line-height: 25px;
+			font-size: 25px;
+			font-family: 'UbuntuR';
+			color: white;
+			margin-bottom: 10px;
+			line-height: 90px;
+		}
+		.wrapper{
+			display: table-cell;
+			vertical-align: middle;
+			line-height: 50px;
+		}
+		#backimg{
+			transition:0s transform;
+		}
+		#author
+		{
+			display: none!important;
+			position: relative;
+			text-align: right;
+			margin-top: 10px;
+			overflow: hidden;
+			transform: translateX(-100%);
+			padding: 10px;
+			padding-right: 20px;
+			color: rgba(255,255,255,0);
+			background:rgb(240, 129, 70); 
+			font-family: 'UbuntuR';
+			border-radius: 0 230px 230px 0;
+			font-size: 20px;
+		}
+		.showup{
+			transform: translateX(-30%)!important;
+		}
+		.showuptext{
+			color: rgba(255,255,255,1)!important;
+		}
+		#bottom{
+			position: absolute;
+			bottom:10px;
+			width: 100%;
+		}
+		
+		#border{
+			border :5px solid rgba(0,0,0,0.7);
+			position: fixed;
+			left:0px;
+			top:0px;
+			bottom:0px;
+			right:0px;
+		}
+#backimg{
+	opacity: 0;
+}
+	</style>
+
+</head>
+	
+<body>
+	<div id ="app-container">
+		<div id ="picture-container" class="container">
+			<img id ="frontimg" src =>
+		</div>
+		<div id ="back-picture-container" class="container">
+			<img id ="backimg" src=>
+		</div>
+
+		<div id ="description-container" class = "container">
+			<h2 id ="picture-description" class = "wrapper"></h2>
+		</div>
+
+	</div>
+	
+	<script type="text/javascript">
+	
+	</script>
+</body>
+</html>

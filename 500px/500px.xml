@@ -1,0 +1,17 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<app type="content" category="Social Media" name="500px images" icon="http://www.ucview.com/app_store/images/500px-logo.jpg" url="http://4digitalsignage.com/content/500px/index.html">
+
+      <var lable="Category" name="category" type="select" val_label="Popular,Upcoming,Fresh,Editors,Custom" val="popular,upcoming,fresh,editors,custom" />
+	    <var lable="Interval Between Images" name="interval" type="text" val_default="10" info="Can't be less than 5 seconds"/>
+
+	    <var lable="Custom Category Keyword" name="q" type="text" info="Enter any word/phrase to show images for it. Only type something here if you selected 'custom category' above"/>
+	 
+	<description>500px is a photo community powered by creative people worldwide that lets you discover, share, buy and sell inspiring photographs..</description>
+	<previews>
+		<preview url="http://4digitalsignage.com/content/500px/index.html?category=popular&amp;interval=7" />
+		
+	</previews>
+	<version>1.0</version>
+
+</app>

@@ -1,0 +1,1 @@
+Feel free to delete any JS method that deals with the HTML/CSS of the document...The actual important information can easily be remade and modified to the new HTML/CSS file once design is actually complete.

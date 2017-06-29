@@ -1,0 +1,89 @@
+/*
+	darkgrey = rgb(30,30,30);
+	lightgrey = rgb(70,70,70);
+	lightblue = rgb(50,170,220);
+*/
+#player {
+	background-color: rgb(30, 30, 30);
+	display: inline-block;
+	position: absolute;
+
+	user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+}
+img {
+	background-color: rgb(70,70,70);
+}
+img:hover{
+	background-color: white;
+}
+/* Below is Contaiers*/
+img, #pbar-container, #sbar-container{
+	cursor: pointer;
+}
+#video-container {
+	width: calc(100%+2px);
+	height: 100%;
+	position: relative;
+}
+	video{
+		height:100%;
+		width: 100%;
+	}
+
+#pbar-container {
+	padding-bottom: 2px;
+	background-color: rgb(70,70,70);
+	margin-top: 2px;
+}
+	#pbar{
+		height: 5px;
+		width: 0%;
+		background-color: rgb(50,170,220);
+	}
+#buttons-container {
+	height: 50px;
+
+}
+	#buttons-container > *{
+		display: inline-block;
+		height: 100%;
+		
+		vertical-align: middle;
+		margin: 0 20px;
+	}
+	#time-field{
+		color:white;
+		line-height: 50px;
+		 cursor: default;
+	}
+	#sound-button{
+		margin-right: 0;
+	}
+	#play-button{
+		margin-left: 0;
+		float:left;
+	}
+	#sbar-container{
+		margin-left: 0;
+		width: 100px;
+		height: 15px;
+		background-color:rgb(70,70,70); 
+	}
+		#sbar{
+			height: 100%;
+			width: 100%;
+			background-color: rgb(50,170,220);
+		}
+	#fullscreen-button{
+		float: right;
+		margin-right: 0;
+	}
+#brand{
+	color: white;
+	line-height: 50px;
+	cursor: pointer;
+	text-decoration: none;
+
+}
