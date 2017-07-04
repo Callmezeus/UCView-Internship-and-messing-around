@@ -51,74 +51,80 @@ function startApp(){
 function createStartPage(){
 	var i=0;
 	for(i=0;i<15;i++){
-		var entry1 = document.createElement('img');
-		if(CNN.item[i]["media:group"]!=undefined){
-			entry1.src = CNN.item[i]["media:group"]["media:content"][0].url;
-		}
+		if(CNN.item[i]!=undefined){
+			var entry1 = document.createElement('img');
+			if(CNN.item[i]["media:group"]!=undefined){
+				entry1.src = CNN.item[i]["media:group"]["media:content"][0].url;
+			}
 
-		var entry2 = document.createElement('a');
-		entry2.setAttribute('target',"_new");
-		entry2.setAttribute('href', CNN.item[i].link);
 
-		entry2.appendChild(document.createTextNode(CNN.item[i].title));
+			var entry2 = document.createElement('a');
+			entry2.setAttribute('target',"_new");
+			entry2.setAttribute('href', CNN.item[i].link);
+
+			entry2.appendChild(document.createTextNode(CNN.item[i].title));
 		
 		//var entry3 = document.createElement('p');
 		//entry3.appendChild(document.createTextNode(fixDescription(CNN.item[i].description)));
 		
-		listo.appendChild(entry1);
-		listo.appendChild(entry2);
+			listo.appendChild(entry1);
+			listo.appendChild(entry2);
 		//listo.appendChild(entry3);
-
-		var entry1 = document.createElement('img');
-		if(BBC.item[i]["media:thumbnail"]!=undefined){
-			entry1.src = BBC.item[i]["media:thumbnail"].url;
 		}
+		if(BBC.item[i]!=undefined){
+			var entry1 = document.createElement('img');
+			if(BBC.item[i]["media:thumbnail"]!=undefined){
+				entry1.src = BBC.item[i]["media:thumbnail"].url;
+			}
 
-		var entry2 = document.createElement('a');
-		entry2.appendChild(document.createTextNode(BBC.item[i].title));
-		entry2.setAttribute('target',"_new");
-		entry2.setAttribute('href', BBC.item[i].link);
+			var entry2 = document.createElement('a');
+			entry2.appendChild(document.createTextNode(BBC.item[i].title));
+			entry2.setAttribute('target',"_new");
+			entry2.setAttribute('href', BBC.item[i].link);
 
 		//var entry3 = document.createElement('p');
 		//entry3.appendChild(document.createTextNode(fixDescription(BBC.item[i].description)));
 
-		listo.appendChild(entry1);
-		listo.appendChild(entry2);
+			listo.appendChild(entry1);
+			listo.appendChild(entry2);
 		//listo.appendChild(entry3);
-
-		var entry1 = document.createElement('img');
-		
-		if(NYT.item[i]["media:content"]!=undefined){
-			entry1.src = NYT.item[i]["media:content"].url;
 		}
+		if(NYT.item[i]!=undefined){
+			var entry1 = document.createElement('img');
+		
+			if(NYT.item[i]["media:content"]!=undefined){
+				entry1.src = NYT.item[i]["media:content"].url;
+			}
 
-		var entry2 = document.createElement('a');
-		entry2.appendChild(document.createTextNode(NYT.item[i].title));
-		entry2.setAttribute('target',"_new");
-		entry2.setAttribute('href', NYT.item[i].link);
+			var entry2 = document.createElement('a');
+			entry2.appendChild(document.createTextNode(NYT.item[i].title));
+			entry2.setAttribute('target',"_new");
+			entry2.setAttribute('href', NYT.item[i].link);
 		//var entry3 = document.createElement('p');
 		//entry3.appendChild(document.createTextNode(fixDescription(NYT.item[i].description)));
 
-		listo.appendChild(entry1);
-		listo.appendChild(entry2);
+			listo.appendChild(entry1);
+			listo.appendChild(entry2);
 		//listo.appendChild(entry3);
-
-		var entry1 = document.createElement('img');
-		if(Guardian.item[i]["media:content"]!=undefined){
-			entry1.src = Guardian.item[i]["media:content"]["0"].url;
 		}
+		if(Guardian.item[i]!=undefined){
+			var entry1 = document.createElement('img');
+			if(Guardian.item[i]["media:content"]!=undefined){
+				entry1.src = Guardian.item[i]["media:content"]["0"].url;
+			}
 
-		var entry2 = document.createElement('a');
-		entry2.appendChild(document.createTextNode(Guardian.item[i].title));
-		entry2.setAttribute('target',"_new");
-		entry2.setAttribute('href', Guardian.item[i].link);
+			var entry2 = document.createElement('a');
+			entry2.appendChild(document.createTextNode(Guardian.item[i].title));
+			entry2.setAttribute('target',"_new");
+			entry2.setAttribute('href', Guardian.item[i].link);
 
 		//var entry3 = document.createElement('p');
 		//entry3.appendChild(document.createTextNode(fixDescription(Guardian.item[i].description)));
 		
-		listo.appendChild(entry1);
-		listo.appendChild(entry2);
+			listo.appendChild(entry1);
+			listo.appendChild(entry2);
 		//listo.appendChild(entry3);
+		}
 	}
 }
 function createCNNTree(){
