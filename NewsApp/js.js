@@ -52,7 +52,7 @@ function createStartPage(){
 	var i=0;
 	for(i=0;i<15;i++){
 		var entry1 = document.createElement('img');
-		if(CNN.item[i]["media:group"]["media:content"]!=undefined){
+		if(CNN.item[i]["media:group"]!=undefined){
 			entry1.src = CNN.item[i]["media:group"]["media:content"][0].url;
 		}
 
