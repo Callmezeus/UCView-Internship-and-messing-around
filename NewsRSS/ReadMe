@@ -1,4 +1,6 @@
-This app contains US politics RSS feeds from CNN, NYT, BBC, and TheGuardian. It is meant to act as a sidebar, with an extremely small width, and max screen height. This was made for a friend who wishes to see the latest news in politics.
+This app contains US politics RSS feeds from CNN, NYT, BBC, and TheGuardian. 
+
+It is meant to act as a sidebar, with an extremely small width, and max screen height. This was made for a friend who wishes to see the latest news in politics.
 
 That being said, this app refreshes each RSS feed every 4 minutes, and if a new article is found, it will add it to the top of the page.
 
