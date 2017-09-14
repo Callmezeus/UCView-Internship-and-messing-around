@@ -2,10 +2,15 @@ In order to use the custom search feature please input ?category=custom&interval
 
 Otherwise input ?category=(choose from list)&interval=(your desired interval in seconds)
 
+Example proper URL:
+https://callmezeus.github.io/500px/index.html?category=custom&interval=10&search=hello
+
       Default Searches:
 popular
 upcoming
 fresh
 editors
 
+Example proper URL:
+https://callmezeus.github.io/500px/index.html?category=popular&interval=10
 This app is a simple image search on the website 500px.com which will constantly refresh the top 20 most recent results and cycle through them.
