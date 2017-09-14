@@ -17,3 +17,4 @@ https://callmezeus.github.io/500px/index.html?category=popular&interval=10
 WARNING: SOME IMAGES MAY BE NSFW
 
 This app is a simple image search on the website 500px.com which will constantly refresh the top 20 most recent results and cycle through them.
+It also implements a simple cookie which remembers the position you were in (+1 image ahead) in case you closed the browser.
