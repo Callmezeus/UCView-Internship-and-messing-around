@@ -1,0 +1,11 @@
+In order to use the custom search feature please input ?category=custom&interval=(your desired interval time in seconds)&search=(your desired search)
+
+Otherwise input ?category=(choose from list)&interval=(your desired interval in seconds)
+
+      Default Searches:
+popular
+upcoming
+fresh
+editors
+
+This app is a simple image search on the website 500px.com which will constantly refresh the top 20 most recent results and cycle through them.
