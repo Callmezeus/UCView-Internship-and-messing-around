@@ -1,15 +1,17 @@
 In order to use the custom search feature please input ?category=custom&interval=(your desired interval time in seconds)&search=(your desired search)
 
-Otherwise input ?category=(choose from list)&interval=(your desired interval in seconds)
 
 Example proper URL:
 https://callmezeus.github.io/500px/index.html?category=custom&interval=10&search=hello
 
-      Default Searches:
-popular
-upcoming
-fresh
-editors
+
+Otherwise input ?category=(choose from list)&interval=(your desired interval in seconds)
+
+                  Default Searches:
+      popular
+      upcoming
+      fresh
+      editors
 
 Example proper URL:
 https://callmezeus.github.io/500px/index.html?category=popular&interval=10
