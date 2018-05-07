@@ -2,6 +2,7 @@ In order to use the custom search feature please input ?category=custom&interval
 
 
 Example proper URL:
+(These links no longer work with the addition of GitHub Pages, and will be repaired after finishing finals (: )
 https://callmezeus.github.io/500px/index.html?category=custom&interval=10&search=hello
 
 
@@ -14,6 +15,7 @@ Otherwise input ?category=(choose from list)&interval=(your desired interval in 
       editors
 
 Example proper URL:
+(These links no longer work with the addition of GitHub Pages, and will be repaired after finishing finals (: )
 https://callmezeus.github.io/500px/index.html?category=popular&interval=10
 
 WARNING: SOME IMAGES MAY BE NSFW
